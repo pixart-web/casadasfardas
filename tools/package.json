@@ -1,0 +1,15 @@
+{
+  "name": "casadasfardas-tools",
+  "private": true,
+  "description": "QA local da loja Casa das Fardas: testes end-to-end (Playwright + axe), verificação do editor, capturas, desempenho.",
+  "type": "module",
+  "scripts": {
+    "test": "playwright test",
+    "screenshots": "node screenshots.mjs",
+    "editor-check": "node editor-check.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.55.0",
+    "@axe-core/playwright": "4.10.2"
+  }
+}

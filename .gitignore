@@ -1,0 +1,12 @@
+# Segredos e ficheiros locais
+.env
+.credentials.local
+.venv/
+tools/node_modules/
+docs/qa/artefactos/
+exports/*.json
+!exports/.gitkeep
+# Recolha: a cache HTML e as imagens descarregadas são regeneráveis (audit/scripts/crawl.py)
+audit/cache/
+audit/media/products/
+.DS_Store

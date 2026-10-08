@@ -1,0 +1,40 @@
+{
+ "fonte": {
+  "urls_sitemap_produtos": 966,
+  "folhas_menu": 122,
+  "artigos_declarados_listagens": 955,
+  "artigos_listados_unicos": 955,
+  "fichas_recolhidas": 970,
+  "fichas_com_dados_estruturados": 957,
+  "derivados_referidos": 2913,
+  "derivados_recolhidos": 2913,
+  "imagens_referidas": 5356,
+  "imagens_descarregadas": 5356,
+  "imagens_invalidas_na_origem": 1
+ },
+ "catalogo": {
+  "categorias": 141,
+  "categorias_vazias_na_origem": 8,
+  "produtos": 958,
+  "removidos_na_origem": 12,
+  "produtos_publicados": 955,
+  "produtos_rascunho": 3,
+  "produtos_com_preco": 948,
+  "produtos_variaveis": 545,
+  "variacoes": 2913,
+  "produtos_com_tamanhos_selecionaveis": 598,
+  "estado_tamanhos": {
+   "ok": 597,
+   "vazio": 227,
+   "nao-interpretado": 50,
+   "unico": 74,
+   "um-tamanho": 10
+  },
+  "marcas": 6,
+  "cores": 493,
+  "cores_sem_familia": [],
+  "imagens_produto": 2505,
+  "imagens_variacao": 2912,
+  "lacunas_registadas": 133
+ }
+}

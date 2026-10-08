@@ -1,0 +1,605 @@
+              
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+<title>Lista de Produtos</title>
+<style type="text/css">
+
+.tit_timer { font-family:VERDANA; font-size:11px; margin:-3px 0px 5px; color: #696969; letter-spacing:0.02em; }
+.timerxn2 { font-size:24px; margin:0px 16px 0px 0px; font-family:Helvetica; text-align:right; color:; }
+.timerxl2 { font-size:16px; font-family:Helvetica; color:#656965; text-align:right; }
+.bloco_timer_s { position:relative; clear:both; padding:15px 0px; margin:20px 0px 0px; border-top:1px solid #E8E8E8; }
+.listasv2_timer { position:relative; display:inline-block; margin: 10px 0px 30px; }
+
+.divtab { position:relative; display:table; width:100%; }
+.divrow { display:table-row; }
+.divcel { display:table-cell; vertical-align:middle; }
+
+.box_apoio_botoes {
+    position:absolute; height:170px; top:0px; bottom:0px; display:none; z-index:103;
+}
+
+.box_apoio_base {
+    position:absolute; height:170px; display:none; width:180px; left:0px; z-index:102;
+top:0px;}
+.box_apoio_fundo {
+    position:absolute; top:0px; bottom:0px; background-color:#000000; opacity:0.60; filter: alpha(opacity=60); color:#ffffff;
+    width:180px; height:170px;
+-webkit-border-radius:3px 3px 0px 0px; -moz-border-radius:3px 3px 0px 0px; border-radius:3px 3px 0px 0px;}
+
+.icons_favcon { position:absolute; z-index:100; display:inline-block;
+right:11px;top:10px;}
+.menu_icon, .menu_icon_ma { z-index:2; }
+.menu_icon:before { content: ""; position:absolute; top:9px; left:8px; width:12px; height:0.125em; border-top:0.375em double #313131; border-bottom:0.125em solid #313131; }
+.menu_icon_ma { content: ""; position:absolute; top:7px; left:6px; width:16px; height:13px; background-image:url('../imagens/ma_foto_off.png'); background-repeat:no-repeat; background-position:center center; }
+.circleBase { border-radius: 50%; z-index:1; }
+.menu_iconf { width:28px; height:28px; background:#BCBCBC; border:0px; opacity: 0.5; filter: alpha(opacity=50); }
+.menu_iconb:hover .menu_icon:before { border-top:0.375em double #FFFFFF; border-bottom:0.125em solid #FFFFFF; }
+.menu_icon_mafoto:hover .menu_icon_ma { background-image:url('../imagens/ma_foto_on.png'); }
+.menu_icon_mafoto:hover .menu_iconf, .menu_iconb:hover .menu_iconf { transition: all .5s; -webkit-transition: all .5s; -moz-transition: all .5s; background:#000000; }
+
+.listarv2_btc_icon { position:absolute; top:0px; left:0px; width:100%; height:100%; background-image:url(https://www.casadasfardas.pt/back/fotos/casa1476/design/btshop.png); background-position:left 4px center; background-repeat:no-repeat; z-index:5; }.listarv2_btc_3d { position:absolute; top:0px; left:0px; width:100%; height:100%; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; background-image:url(../imagens/comp3d.png);  background-position:left bottom; background-repeat: repeat-x; z-index:4; }
+.listarv2_btc_n { position:relative; z-index:5; }
+.listarv2_bt_esp { position:relative; height:28px; }
+
+
+.listarv2_btcomprar, .listarv2_btconsultar {
+    position:relative; text-decoration: none; -webkit-transition-duration: 0.3s; transition-duration: 0.3s; cursor:pointer;
+    font-family:Helvetica;
+    font-size: 11px;
+    line-height: 11px;
+    font-weight: bold;
+    text-align:right;
+    border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px;    border:0px solid #169AD4;
+    background-color:#169AD4;
+    color:#FFFFFF;
+    padding:6px 4px 6px 8px;
+    z-index:100;
+}
+
+.listarv2_btcomprar {
+    margin:0px 8px 0px 0px;
+}
+
+.listarv2_btconsultar {
+    margin:0px 8px 3px;
+}
+
+.listarv2_btcomprar:hover { border:0px solid #F20000; background-color:#F20000; color:#FFFFFF; }
+
+.listarv2_btconsultar {
+    text-align:center;
+    border:0px solid #4371B5;
+    background-color:#4371B5;
+    color:#FFFFFF;
+}
+
+.listarv2_btconsultar:hover { border:0px solid #5087D9; background-color:#5087D9; color:#FFFFFF; }
+
+
+.listav2_precop, .listav2_precos {
+    font-family:Arial;
+    text-align:left;
+}
+
+.listav2_precop_out { text-align:left; margin: 5px 0px 5px; }
+.listav2_precop {
+    font-size:16px;
+    line-height:16pt;
+    color:#FF6F00;
+    font-weight:bold;
+    margin:0px 0px 0px 7px;
+}
+
+.listav2_precos {
+    font-size:12px;
+    line-height:12pt;
+    color:#575757;
+    font-weight:normal;
+    margin:0px 0px 0px 7px;
+    text-decoration:line-through;
+}
+
+.listarv2_xnov {
+    color:#FFFFFF;
+    background-color:#36A60D;
+}
+
+.listarv2_ifa {
+    position:relative; background-image: url(../imagens/listfa.png); width:19px; height:18px; margin:0px;
+}
+
+.listarv2_ico {
+    position:relative; background-image: url(../imagens/listco.png); width:17px; height:16px; margin:0px;
+}
+
+.listarv2_nada { }
+
+.listarv2_xpro {
+    color:#FFFFFF;
+    background-color: #DE3400;
+}
+
+#listav2_bloco_produtos {  justify-content: space-between; flex-wrap: wrap; display: flex; padding:0px 0px; }
+.lv2tab { position:absolute; display:table; width:100%; height:100%; top:0px; left:0px; }
+.lv2celde { display:table-cell; text-align:left; vertical-align:top; }
+.lv2celpn { display:table-cell; text-align:right; vertical-align:bottom; }
+.lv2celho { display:table-cell; text-align:left; vertical-align:top; }
+
+.listav2_nome {
+    font-family:Helvetica; cursor:pointer;
+    font-size:13px;
+    line-height:13pt;
+    color:#0F63B8;
+    font-weight:bold;
+    text-align:left;
+    text-decoration:none;
+    letter-spacing:0em;
+}
+
+.listav2_nome:hover { color:#051E38; }
+
+.listav2_nomed {
+    margin: 10px 7px 5px;
+}
+
+.listav2_desc {
+    font-family:Arial;
+    font-size:12px;
+    line-height:12pt;
+    color:#5D7587;
+    font-weight:normal;
+    text-align:left;
+    margin: 5px 7px 25px;
+    letter-spacing:0em;
+}
+
+.listarv2_xnov, .listarv2_xpro {
+    border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px;    font-size: 8.5px; display:inline-block; font-family:Helvetica;
+    margin: 6px 6px 6px 0px;
+    color:#FFFFFF; letter-spacing:0.12em;
+    padding:4px 6px 3px;
+    font-weight: bold; text-shadow: 0px 1px 0px #605C59;
+        box-shadow: 0 8px 6px -6px #6B6B6B; -webkit-box-shadow:0 8px 6px -6px #6B6B6B; -moz-box-shadow:0 8px 6px -6px #6B6B6B;         }
+
+
+.lista_stock { height:11px; width:11px; padding:0px; margin:3px 7px 0px 0px; float:left; background-repeat:no-repeat; }
+
+.hx { position:relative; height:1px; width:180px; padding:0px 1px 0px; }
+.divcelp { display:table-cell; vertical-align:middle; width:50%; height:43px;}
+.divcels { display:table-cell; vertical-align:middle; width:50%; height:43px;}
+
+.listarv2_bt { position:absolute; bottom:0px; left:0px; width:180px; }
+
+.listav2_bloco_etiquetas {
+    position:absolute;
+    top:1px;
+    height: 178px;
+    width: 178px;
+    padding:0px;
+    border:1px solid transparent;
+    pointer-events: none;
+}
+
+.box_apoio_foto {
+    position:absolute;
+    top: 0px;
+    left: 0px;
+    width:180px;
+    height:170px;
+    pointer-events:none;
+    z-index:101;
+}
+
+.menu_iconb { position:absolute; display:none; cursor:pointer; z-index:100;
+right:11px;top:10px;}
+
+.menu_icon_mafoto { position:absolute; display:none; cursor:pointer; z-index:100;
+right:11px;top:42px;}
+
+.listav2_box {
+    position:relative;
+    border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;    background-color: #F3F3F5;
+                                            width: 180px;
+    text-align:center;
+    vertical-align: top;
+    padding:0px;
+    border:1px solid #E4E4E6;
+    margin:7px 0px 0px;
+    transition: all .2s; -webkit-transition: all .2s; -moz-transition: all .2s;
+}
+
+
+
+
+.listav2_foto_lim {
+    display:inline-block; overflow:hidden;
+    border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;}
+
+.listav2_foto {
+    border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;    width: 180px;
+    height: 180px;
+    transition: all .3s; -webkit-transition: all .3s; -moz-transition: all .3s;
+    background-size:100%;    background-position: center center;
+    background-repeat:no-repeat;
+    filter: contrast(105%); cursor:pointer;
+    image-rendering:-webkit-optimize-contrast;
+}
+
+.listav2_foto:hover {
+}
+.csstag { background:url("../imagens/apaga_tag.png") no-repeat 6px center; border:1px solid #D8D8D8; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; padding: 4px 10px 4px 17px; font-family:Helvetica; font-size:11px; margin:3px 3px 3px 3px; background-color:#ffffff; color: #5F5F5F; cursor:pointer; letter-spacing:0,02em; display:inline-block; }
+.csstag:hover { background-color: #F0F0F0; }
+.htag { display:none; }
+.cor_neutra { opacity: 0.5; filter: alpha(opacity=50);  }
+
+.time-range { padding:0px 15px 5px; }
+.ui-slider-horizontal { height: 6px; background:#D7D7D7; clear: both; -webkit-border-radius: 6px; -moz-border-radius: 6px; -ms-border-radius: 6px; -o-border-radius: 6px; border-radius: 6px;}
+.ui-slider { position: relative; text-align: left; }
+.ui-slider-horizontal .ui-slider-range { top: 0px; height: 100%;}
+.ui-slider .ui-slider-range { position: absolute; z-index: 1; height: 4px; font-size: .8em; display: block; border: 1px solid #F5BD49; background-color: #F5BD49; -moz-border-radius: 15px; -webkit-border-radius: 15px; -khtml-border-radius: 15px;  border-radius: 15px;}
+.ui-slider .ui-slider-handle { position: absolute; z-index: 2; width: 9px; height: 9px; cursor: default; border: none; cursor: pointer; border:4px solid #676767; background:#FBEDC4; -moz-border-radius: 10px; -webkit-border-radius: 10px; -khtml-border-radius: 10px; border-radius: 10px; }
+.ui-slider-handle:active, .ui-slider-handle:hover { border:4px solid #F5BD49; background:#F5BD49; }
+.ui-slider-horizontal .ui-slider-handle { top: -.35em; margin-left: -.8em;}
+.intprerc { font-family:Helvetica; font-size:12px; height: 20px; color:#7D7D7D; letter-spacing:0.02em; }
+.ui-slider a:focus { outline:none;}
+.sripc { color:#7D7D7D; opacity:0.8; }
+#slider-range { width: 240px; margin: 0px;}
+.time-range { width: 240px; margin:0px 0px; display:block;}
+.time-slider-label { display:inline-block;}
+.sliders_step1{ width: auto;}
+#time-range label{ margin-top:0px;}
+</style>
+</head>
+
+<body>
+<div id="lista_visivel" style="display:none;">
+<script>
+function mensagem(titulo,texto) {
+$.alert({
+    closeIcon: true,
+    type: 'red',
+    title: '<span style="font-family:Arial; color:#3F9A32">'+titulo+'</span>',
+    content: '<span style="font-family:Arial; letter-spacing:0.02em; line-height:18pt; color:#4B505C">'+texto+'</span>',
+    boxWidth: '500px',
+    useBootstrap: false,
+});
+}
+
+$('.listav2_box').hover(function() {
+    var id = $(this).attr('id');
+    var liff = parseInt(id.substring(4));
+    $("#ifc_"+liff).hide(300);
+    $("#map_"+liff).show(300);
+    $("#kap_"+liff).show(300);
+}, function() {
+       var id = $(this).attr('id');
+       var liff = parseInt(id.substring(4));
+       $("#map_"+liff).hide(300);
+       $("#kap_"+liff).hide(300);
+       $("#ifc_"+liff).show(300);
+});
+
+$(".menu_icon_mafoto").click(function(){
+    var id = $(this).attr('id');
+    var liff = parseInt(id.substring(4));
+    abre_mini_album(liff);
+});
+
+$(".menu_iconb").click(function(){
+    var id = $(this).attr('id');
+    var liff = parseInt(id.substring(4));
+    $("#baf_"+liff).css("pointer-events","auto");
+    $("#bap_"+liff).slideDown(300);
+    $("#flb_"+liff).load("../blocos/listas_botoes_apoio.php?caminho=../&id="+liff+"&tipo_iframe=");
+    $(".box_apoio_botoes").slideDown(700);
+});
+
+$('.box_apoio_base').hover(function() {
+}, function() {
+    var id = $(this).attr('id');
+    var liff = parseInt(id.substring(4));
+    $("#baf_"+liff).css("pointer-events","none");
+    $(".box_apoio_botoes").hide(300);
+    $(this).slideUp(300);
+});
+
+function esconde_icon(i,id) {
+    $('#'+i+'_'+id).removeClass('listarv2_'+i);
+    $('#'+i+'_'+id).addClass('listarv2_nada');
+}
+
+function mostra_icon(i,id) {
+    $('#'+i+'_'+id).removeClass('listarv2_nada');
+    $('#'+i+'_'+id).addClass('listarv2_'+i);
+}
+
+$('.listav2_foto,.menu_iconb,.menu_icon_mafoto,.box_apoio_foto').hover(function() {
+    var id = $(this).attr('id');
+    var liff = parseInt(id.substring(4));
+    if (liff) {
+        $("#lif_"+liff).css({'background-image': "url(../back/fotos/casa1476/produtos/capa_"+liff+"_1.jpg)"});
+    }
+}, function() {
+       var id = $(this).attr('id');
+       var liff = parseInt(id.substring(4));
+       if (liff) {
+           $("#lif_"+liff).css("background-image", "url(../back/fotos/casa1476/produtos/capa_"+liff+"_0.jpg)");
+       }
+});
+
+function comparacao_incompativel() {
+     mensagem("ESTE PRODUTO É INCOMPATÍVEL COM OS PRODUTOS NO COMPARADOR","As características dos produtos que adicionou anteriormente ao comparador não são compatíveis com as de este produto. Apague os produtos do comparador para comparar produtos de categoria diferente.");
+}
+
+function sobe() {
+$("html, body").animate({ scrollTop: $("#dlistv2").offset().top }, 500);
+}
+
+var lista_indisponiveis = 0;
+function lista_indisponiveis(estado) {
+     if (lista_indisponiveis == 1) lista_indisponiveis = 0; else lista_indisponiveis = 1;
+}
+</script>
+
+
+
+<div id="me_cab_listas" style="background-color:transparent;">
+<div class="lista_cab1 ctsredcab"><h1>Batas</h1></div>
+<table border="0" cellspacing="0" cellpadding="0" width="100%" class="ctcabce ctcabcd" style="border:1px solid #EDEDED"><tr>
+<td width="27" class="ctcabce licel4 lisbtsel" ><table border="0" cellspacing="0" cellpadding="0" id="fbpa" class="fbpon"><tr><td id="fbp1on"></td><td id="fbp1on"></td><td id="fbp1on"></td><td id="fbp1on"></td></tr><tr><td id="fbp1on"></td><td id="fbp1on"></td><td id="fbp1on"></td><td id="fbp1on"></td></tr></table></td>
+<td class="licelbg"></td>
+<td width="27" class="licel4" onclick="parent.reflistav2('listar_categoria_corev2.php?width_disponivel=960&id=22&subm_ini=&campo=&nivelm=subcategoria&xpag=&lpfiltro=&filtro_de=&filtro_ate=&ordem_lista=desc&ordena=referencia&ltipa=2&slim=&width_disponivel=960&lpfiltro=&listind=&rangemin=&rangemax=');" onmouseover="document.getElementById('fbpb').className='fbpon';" onmouseout="document.getElementById('fbpb').className='fbp';"><table border="0" cellspacing="0" cellpadding="0" id="fbpb" class="fbp"><tr><td id="fbp2"></td><td id="fbp2"></td></tr><tr><td id="fbp2"></td><td id="fbp2"></td></tr><tr><td id="fbp2"></td><td id="fbp2"></td></tr></table></td>
+<td class="licelbg"></td>
+<td width="27" class="licel4" onclick="parent.reflistav2('listar_categoria_corev2.php?width_disponivel=960&id=22&subm_ini=&campo=&nivelm=subcategoria&xpag=&lpfiltro=&filtro_de=&filtro_ate=&ordem_lista=desc&ordena=referencia&ltipa=3&slim=&width_disponivel=960lpfiltro=&listind=&rangemin=&rangemax=');" onmouseover="document.getElementById('fbpc').className='fbpon';" onmouseout="document.getElementById('fbpc').className='fbp';"><table border="0" cellspacing="0" cellpadding="0" id="fbpc" class="fbp"><tr><td id="fbp3"></td></tr><tr><td id="fbp3"></td></tr><tr><td id="fbp3"></td></tr></table></td>
+<td class="licelbg"></td>
+<td width="-550" class="licel1" align="right"><div style="float:left; margin-left:15px;"><label class="tcblabel"><input onclick="parent.reflistav2('listar_categoria_corev2.php?width_disponivel=960&id=22&subm_ini=&campo=&nivelm=subcategoria&xpag=&lpfiltro=&filtro_de=&filtro_ate=&ordem_lista=desc&slim=&ordena=referencia&ltipa=1&width_disponivel=960&lpfiltro=&listind=1&xpag=0&rangemin=&rangemax=');" class="tcbchkbox" type="checkbox" name='veindis' id='veindis' value='1'><b>SÓ PROMOÇÕES</b></label></div><p class="lislet1">ORDENAR POR:</p></td>
+<td class="licelbg"></td>
+<td width="68" class="licel4" onclick="parent.reflistav2('listar_categoria_corev2.php?width_disponivel=960&id=22&subm_ini=&campo=&nivelm=subcategoria&xpag=&lpfiltro=&filtro_de=&filtro_ate=&ordem_lista=desc&slim=&ordena=nome&ltipa=1&width_disponivel=960&lpfiltro=&listind=&rangemin=&rangemax=');">NOME</td>
+<td class="licelbg"></td>
+<td width="68" class="licel4" onclick="parent.reflistav2('listar_categoria_corev2.php?width_disponivel=960&id=22&subm_ini=&campo=&nivelm=subcategoria&xpag=&lpfiltro=&filtro_de=&filtro_ate=&ordem_lista=asc&slim=&ordena=valor_principal&ltipa=1&width_disponivel=960&lpfiltro=&listind=&rangemin=&rangemax=');">PREÇO</td>
+<td class="licelbg"></td>
+<td width="68" class="licel4 lisbtsel" onclick="parent.reflistav2('listar_categoria_corev2.php?width_disponivel=960&id=22&subm_ini=&campo=&nivelm=subcategoria&xpag=&lpfiltro=&filtro_de=&filtro_ate=&ordem_lista=desc&slim=&ordena=op5&ltipa=1&width_disponivel=960&lpfiltro=&listind=&rangemin=&rangemax=');">ENTRADA</td>
+<td class="licelbg"></td>
+<td width="68" class="licel4" onclick="parent.reflistav2('listar_categoria_corev2.php?width_disponivel=960&id=22&subm_ini=&campo=&nivelm=subcategoria&xpag=&lpfiltro=&filtro_de=&filtro_ate=&ordem_lista=desc&slim=&ordena=contador&ltipa=1&width_disponivel=960&lpfiltro=&listind=&rangemin=&rangemax=');">VENDAS</td>
+<td class="licelbg"></td>
+<td width="22" class="licel4" title="Ordem Crescente" onclick="parent.reflistav2('listar_categoria_corev2.php?width_disponivel=960&id=22&subm_ini=&campo=&nivelm=subcategoria&xpag=&lpfiltro=&filtro_de=&filtro_ate=&ordem_lista=asc&width_disponivel=960&ordena=referencia&slim=&ltipa=1&lpfiltro=&listind=&rangemin=&rangemax=');" onmouseover="document.getElementById('ordena1').className='lisetabon';" onmouseout="document.getElementById('ordena1').className='lisetab';" ><div id="ordena1" class="lisetab"></div></td>
+<td class="licelbg"></td>
+<td width="22" class="ctcabcd licel4 lisbtsel" title="Ordem Decrescente" ><div id="ordena2" class="lisetacon"></div></td>
+</tr></table>
+</div>
+<div class="infolistapag" style="text-align:left;">Resultado: 1 a <span id="num_artigos_lista"></span> de 11 produto(s) &nbsp;|&nbsp; Página 1 de 1</div><div id='listav2_bloco_produtos'><div id="box_2409" class="listav2_box">
+                      <div id="lif_2409" class="listav2_foto " onclick="top.location.href='../info/Bata-de-senhora-modelo-SMART-2409.html'" style="background-image: url('../back/fotos/casa1476/produtos/capa_2409_0.jpg');"></div>
+                      <div class="listav2_nome listav2_nomed"><a class="listav2_nome" target="_top" href="../info/Bata-de-senhora-modelo-SMART-2409.html">Bata de senhora modelo SMART</a></div>
+                <div class="listav2_desc">Bata de senhora com bolso peito lado esquerdo. 2 bolsos inferiores. Punhos com botão</div><div class="listarv2_bt"><div class="divtab"><div class="divcelp"><div class="listarv2_btconsultar" onclick="top.location.href='../info/Bata-de-senhora-modelo-SMART-2409.html'"><div class="listarv2_btc_3d"></div><div class="listarv2_btc_n">CONSULTAR</div></div></div></div></div><div class="listarv2_bt_esp"></div>
+                     
+                     <div id="ifc_2409" class="icons_favcon"><div id="ifa_2409" class="listarv2_nada"></div><div id="ico_2409" class="listarv2_nada"></div></div>
+              <div id="map_2409" class="menu_iconb">
+                   <div class="circleBase menu_iconf"></div>
+                   <div class="menu_icon"></div>
+              </div>
+              <div id="kap_2409" class="menu_icon_mafoto">
+                   <div class="circleBase menu_iconf"></div>
+                   <div class="menu_icon_ma"></div>
+              </div>
+              <div id="baf_2409" class="box_apoio_foto">
+                   <div id="bap_2409" class="box_apoio_base">
+                        <div class="box_apoio_fundo"></div>
+                        <div class="box_apoio_botoes" id="flb_2409"></div>
+                   </div>
+              </div></div>
+<div id="box_2403" class="listav2_box">
+                      <div id="lif_2403" class="listav2_foto " onclick="top.location.href='../info/Bata-modelo-ALANIS-2403.html'" style="background-image: url('../back/fotos/casa1476/produtos/capa_2403_0.jpg');"></div>
+                      <div class="listav2_nome listav2_nomed"><a class="listav2_nome" target="_top" href="../info/Bata-modelo-ALANIS-2403.html">Bata modelo ALANIS</a></div>
+                <div class="listav2_desc">Bata com tecido plano 2 cores. 3 bolsos dianteiros</div><div class="listarv2_bt"><div class="divtab"><div class="divcelp"><div class="listarv2_btconsultar" onclick="top.location.href='../info/Bata-modelo-ALANIS-2403.html'"><div class="listarv2_btc_3d"></div><div class="listarv2_btc_n">CONSULTAR</div></div></div></div></div><div class="listarv2_bt_esp"></div>
+                     
+                     <div id="ifc_2403" class="icons_favcon"><div id="ifa_2403" class="listarv2_nada"></div><div id="ico_2403" class="listarv2_nada"></div></div>
+              <div id="map_2403" class="menu_iconb">
+                   <div class="circleBase menu_iconf"></div>
+                   <div class="menu_icon"></div>
+              </div>
+              <div id="kap_2403" class="menu_icon_mafoto">
+                   <div class="circleBase menu_iconf"></div>
+                   <div class="menu_icon_ma"></div>
+              </div>
+              <div id="baf_2403" class="box_apoio_foto">
+                   <div id="bap_2403" class="box_apoio_base">
+                        <div class="box_apoio_fundo"></div>
+                        <div class="box_apoio_botoes" id="flb_2403"></div>
+                   </div>
+              </div></div>
+<div id="box_2368" class="listav2_box">
+                      <div id="lif_2368" class="listav2_foto " onclick="top.location.href='../info/Tunica-de-saude-modelo-LINK-2368.html'" style="background-image: url('../back/fotos/casa1476/produtos/capa_2368_0.jpg');"></div>
+                      <div class="listav2_nome listav2_nomed"><a class="listav2_nome" target="_top" href="../info/Tunica-de-saude-modelo-LINK-2368.html">Túnica de saúde modelo LINK</a></div>
+                <div class="listav2_desc">Túnica de saúde com bolso peito lado esquerdo. 2 bolsos inferiores</div><div class="listarv2_bt"><div class="divtab"><div class="divcelp"><div class="listarv2_btconsultar" onclick="top.location.href='../info/Tunica-de-saude-modelo-LINK-2368.html'"><div class="listarv2_btc_3d"></div><div class="listarv2_btc_n">CONSULTAR</div></div></div></div></div><div class="listarv2_bt_esp"></div>
+                     
+                     <div id="ifc_2368" class="icons_favcon"><div id="ifa_2368" class="listarv2_nada"></div><div id="ico_2368" class="listarv2_nada"></div></div>
+              <div id="map_2368" class="menu_iconb">
+                   <div class="circleBase menu_iconf"></div>
+                   <div class="menu_icon"></div>
+              </div>
+              <div id="kap_2368" class="menu_icon_mafoto">
+                   <div class="circleBase menu_iconf"></div>
+                   <div class="menu_icon_ma"></div>
+              </div>
+              <div id="baf_2368" class="box_apoio_foto">
+                   <div id="bap_2368" class="box_apoio_base">
+                        <div class="box_apoio_fundo"></div>
+                        <div class="box_apoio_botoes" id="flb_2368"></div>
+                   </div>
+              </div></div>
+<div id="box_2058" class="listav2_box">
+                      <div id="lif_2058" class="listav2_foto " onclick="top.location.href='../info/Bata-de-cavalheiro-em-algodao-2058.html'" style="background-image: url('../back/fotos/casa1476/produtos/capa_2058_0.jpg');"></div>
+                      <div class="listav2_nome listav2_nomed"><a class="listav2_nome" target="_top" href="../info/Bata-de-cavalheiro-em-algodao-2058.html">Bata de cavalheiro em algodão.</a></div>
+                <div class="listav2_desc">Bata de cavalheiro em algodão. Gola sobreposta e fecho central de quatro botões. Um bolso no peito e dois de chapa...</div><div class="listarv2_bt"><div class="divtab"><div class="divcelp"><div class="listarv2_btconsultar" onclick="top.location.href='../info/Bata-de-cavalheiro-em-algodao-2058.html'"><div class="listarv2_btc_3d"></div><div class="listarv2_btc_n">CONSULTAR</div></div></div></div></div><div class="listarv2_bt_esp"></div>
+                     
+                     <div id="ifc_2058" class="icons_favcon"><div id="ifa_2058" class="listarv2_nada"></div><div id="ico_2058" class="listarv2_nada"></div></div>
+              <div id="map_2058" class="menu_iconb">
+                   <div class="circleBase menu_iconf"></div>
+                   <div class="menu_icon"></div>
+              </div>
+              <div id="kap_2058" class="menu_icon_mafoto">
+                   <div class="circleBase menu_iconf"></div>
+                   <div class="menu_icon_ma"></div>
+              </div>
+              <div id="baf_2058" class="box_apoio_foto">
+                   <div id="bap_2058" class="box_apoio_base">
+                        <div class="box_apoio_fundo"></div>
+                        <div class="box_apoio_botoes" id="flb_2058"></div>
+                   </div>
+              </div></div>
+<div id="box_2057" class="listav2_box">
+                      <div id="lif_2057" class="listav2_foto " onclick="top.location.href='../info/Bata-entalhada-de-senhora-em-algodao-2057.html'" style="background-image: url('../back/fotos/casa1476/produtos/capa_2057_0.jpg');"></div>
+                      <div class="listav2_nome listav2_nomed"><a class="listav2_nome" target="_top" href="../info/Bata-entalhada-de-senhora-em-algodao-2057.html">Bata entalhada de senhora em algodão.</a></div>
+                <div class="listav2_desc">Bata entalhada de senhora em algodão. Gola sobreposta e fecho central de cinco botões. Um bolso no peito e dois bolsos...</div><div class="listarv2_bt"><div class="divtab"><div class="divcelp"><div class="listarv2_btconsultar" onclick="top.location.href='../info/Bata-entalhada-de-senhora-em-algodao-2057.html'"><div class="listarv2_btc_3d"></div><div class="listarv2_btc_n">CONSULTAR</div></div></div></div></div><div class="listarv2_bt_esp"></div>
+                     
+                     <div id="ifc_2057" class="icons_favcon"><div id="ifa_2057" class="listarv2_nada"></div><div id="ico_2057" class="listarv2_nada"></div></div>
+              <div id="map_2057" class="menu_iconb">
+                   <div class="circleBase menu_iconf"></div>
+                   <div class="menu_icon"></div>
+              </div>
+              <div id="kap_2057" class="menu_icon_mafoto">
+                   <div class="circleBase menu_iconf"></div>
+                   <div class="menu_icon_ma"></div>
+              </div>
+              <div id="baf_2057" class="box_apoio_foto">
+                   <div id="bap_2057" class="box_apoio_base">
+                        <div class="box_apoio_fundo"></div>
+                        <div class="box_apoio_botoes" id="flb_2057"></div>
+                   </div>
+              </div></div>
+<div id="box_2039" class="listav2_box">
+                      <div id="lif_2039" class="listav2_foto " onclick="top.location.href='../info/Bata-unissexo-para-alimentacao-2039.html'" style="background-image: url('../back/fotos/casa1476/produtos/capa_2039_0.jpg');"></div>
+                      <div class="listav2_nome listav2_nomed"><a class="listav2_nome" target="_top" href="../info/Bata-unissexo-para-alimentacao-2039.html">Bata unissexo para alimentação.</a></div>
+                <div class="listav2_desc">Bata unissexo para alimentação. Gola sobreposta e fecho central de velcro. Um bolso de chapa no peito com fecho de...</div><div class="listarv2_bt"><div class="divtab"><div class="divcelp"><div class="listarv2_btconsultar" onclick="top.location.href='../info/Bata-unissexo-para-alimentacao-2039.html'"><div class="listarv2_btc_3d"></div><div class="listarv2_btc_n">CONSULTAR</div></div></div></div></div><div class="listarv2_bt_esp"></div>
+                     
+                     <div id="ifc_2039" class="icons_favcon"><div id="ifa_2039" class="listarv2_nada"></div><div id="ico_2039" class="listarv2_nada"></div></div>
+              <div id="map_2039" class="menu_iconb">
+                   <div class="circleBase menu_iconf"></div>
+                   <div class="menu_icon"></div>
+              </div>
+              <div id="kap_2039" class="menu_icon_mafoto">
+                   <div class="circleBase menu_iconf"></div>
+                   <div class="menu_icon_ma"></div>
+              </div>
+              <div id="baf_2039" class="box_apoio_foto">
+                   <div id="bap_2039" class="box_apoio_base">
+                        <div class="box_apoio_fundo"></div>
+                        <div class="box_apoio_botoes" id="flb_2039"></div>
+                   </div>
+              </div></div>
+<div id="box_2038" class="listav2_box">
+                      <div id="lif_2038" class="listav2_foto " onclick="top.location.href='../info/Bata-unissexo-com-gola-solapa-e-fecho-central-de-quatro-botoes-do-mesmo-tom-2038.html'" style="background-image: url('../back/fotos/casa1476/produtos/capa_2038_0.jpg');"></div>
+                      <div class="listav2_nome listav2_nomed"><a class="listav2_nome" target="_top" href="../info/Bata-unissexo-com-gola-solapa-e-fecho-central-de-quatro-botoes-do-mesmo-tom-2038.html">Bata unissexo com gola solapa e fecho central de quatro botões do mesmo tom.</a></div>
+                <div class="listav2_desc">Bata unissex com gola solapa e fecho central de quatro botões do mesmo tom. Um bolso no peito e dois de chapa laterais....</div><div class="listarv2_bt"><div class="divtab"><div class="divcelp"><div class="listarv2_btconsultar" onclick="top.location.href='../info/Bata-unissexo-com-gola-solapa-e-fecho-central-de-quatro-botoes-do-mesmo-tom-2038.html'"><div class="listarv2_btc_3d"></div><div class="listarv2_btc_n">CONSULTAR</div></div></div></div></div><div class="listarv2_bt_esp"></div>
+                     
+                     <div id="ifc_2038" class="icons_favcon"><div id="ifa_2038" class="listarv2_nada"></div><div id="ico_2038" class="listarv2_nada"></div></div>
+              <div id="map_2038" class="menu_iconb">
+                   <div class="circleBase menu_iconf"></div>
+                   <div class="menu_icon"></div>
+              </div>
+              <div id="kap_2038" class="menu_icon_mafoto">
+                   <div class="circleBase menu_iconf"></div>
+                   <div class="menu_icon_ma"></div>
+              </div>
+              <div id="baf_2038" class="box_apoio_foto">
+                   <div id="bap_2038" class="box_apoio_base">
+                        <div class="box_apoio_fundo"></div>
+                        <div class="box_apoio_botoes" id="flb_2038"></div>
+                   </div>
+              </div></div>
+<div id="box_1884" class="listav2_box">
+                      <div id="lif_1884" class="listav2_foto " onclick="top.location.href='../info/Conjunto-de-tunica-e-calca-1884.html'" style="background-image: url('../back/fotos/casa1476/produtos/capa_1884_0.jpg');"></div>
+                      <div class="listav2_nome listav2_nomed"><a class="listav2_nome" target="_top" href="../info/Conjunto-de-tunica-e-calca-1884.html">Conjunto de túnica e calça.</a></div>
+                <div class="listav2_desc">Conjunto de túnica e calça. Túnica de manga curta, gola a bico e fecho central com cinco botões do mesmo tom. Aberturas...</div><div class="listarv2_bt"><div class="divtab"><div class="divcelp"><div class="listarv2_btconsultar" onclick="top.location.href='../info/Conjunto-de-tunica-e-calca-1884.html'"><div class="listarv2_btc_3d"></div><div class="listarv2_btc_n">CONSULTAR</div></div></div></div></div><div class="listarv2_bt_esp"></div>
+                     
+                     <div id="ifc_1884" class="icons_favcon"><div id="ifa_1884" class="listarv2_nada"></div><div id="ico_1884" class="listarv2_nada"></div></div>
+              <div id="map_1884" class="menu_iconb">
+                   <div class="circleBase menu_iconf"></div>
+                   <div class="menu_icon"></div>
+              </div>
+              <div id="kap_1884" class="menu_icon_mafoto">
+                   <div class="circleBase menu_iconf"></div>
+                   <div class="menu_icon_ma"></div>
+              </div>
+              <div id="baf_1884" class="box_apoio_foto">
+                   <div id="bap_1884" class="box_apoio_base">
+                        <div class="box_apoio_fundo"></div>
+                        <div class="box_apoio_botoes" id="flb_1884"></div>
+                   </div>
+              </div></div>
+<div id="box_1883" class="listav2_box">
+                      <div id="lif_1883" class="listav2_foto " onclick="top.location.href='../info/Conjunto-tunica-e-calca-1883.html'" style="background-image: url('../back/fotos/casa1476/produtos/capa_1883_0.jpg');"></div>
+                      <div class="listav2_nome listav2_nomed"><a class="listav2_nome" target="_top" href="../info/Conjunto-tunica-e-calca-1883.html">Conjunto túnica e calça.</a></div>
+                <div class="listav2_desc">Conjunto túnica e calça. Túnica de manga curta, gola a bico. Aberturas laterais. Um bolso no peito de chapa. Dois...</div><div class="listarv2_bt"><div class="divtab"><div class="divcelp"><div class="listarv2_btconsultar" onclick="top.location.href='../info/Conjunto-tunica-e-calca-1883.html'"><div class="listarv2_btc_3d"></div><div class="listarv2_btc_n">CONSULTAR</div></div></div></div></div><div class="listarv2_bt_esp"></div>
+                     
+                     <div id="ifc_1883" class="icons_favcon"><div id="ifa_1883" class="listarv2_nada"></div><div id="ico_1883" class="listarv2_nada"></div></div>
+              <div id="map_1883" class="menu_iconb">
+                   <div class="circleBase menu_iconf"></div>
+                   <div class="menu_icon"></div>
+              </div>
+              <div id="kap_1883" class="menu_icon_mafoto">
+                   <div class="circleBase menu_iconf"></div>
+                   <div class="menu_icon_ma"></div>
+              </div>
+              <div id="baf_1883" class="box_apoio_foto">
+                   <div id="bap_1883" class="box_apoio_base">
+                        <div class="box_apoio_fundo"></div>
+                        <div class="box_apoio_botoes" id="flb_1883"></div>
+                   </div>
+              </div></div>
+<div id="box_1823" class="listav2_box">
+                      <div id="lif_1823" class="listav2_foto " onclick="top.location.href='../info/Conjunto-unissexo-de-Tunica-e-Calca-1823.html'" style="background-image: url('../back/fotos/casa1476/produtos/capa_1823_0.jpg');"></div>
+                      <div class="listav2_nome listav2_nomed"><a class="listav2_nome" target="_top" href="../info/Conjunto-unissexo-de-Tunica-e-Calca-1823.html">Conjunto unissexo de Túnica e Calça.</a></div>
+                <div class="listav2_desc">Casaca de manga curta. Gola em bico. Aberturas laterais. Um bolso no peito de chapa. Dois bolsos laterais de chapa. Um...</div><div class="listarv2_bt"><div class="divtab"><div class="divcelp"><div class="listarv2_btconsultar" onclick="top.location.href='../info/Conjunto-unissexo-de-Tunica-e-Calca-1823.html'"><div class="listarv2_btc_3d"></div><div class="listarv2_btc_n">CONSULTAR</div></div></div></div></div><div class="listarv2_bt_esp"></div>
+                     
+                     <div id="ifc_1823" class="icons_favcon"><div id="ifa_1823" class="listarv2_nada"></div><div id="ico_1823" class="listarv2_nada"></div></div>
+              <div id="map_1823" class="menu_iconb">
+                   <div class="circleBase menu_iconf"></div>
+                   <div class="menu_icon"></div>
+              </div>
+              <div id="kap_1823" class="menu_icon_mafoto">
+                   <div class="circleBase menu_iconf"></div>
+                   <div class="menu_icon_ma"></div>
+              </div>
+              <div id="baf_1823" class="box_apoio_foto">
+                   <div id="bap_1823" class="box_apoio_base">
+                        <div class="box_apoio_fundo"></div>
+                        <div class="box_apoio_botoes" id="flb_1823"></div>
+                   </div>
+              </div></div>
+<div id="box_1816" class="listav2_box">
+                      <div id="lif_1816" class="listav2_foto " onclick="top.location.href='../info/Conjunto-unissexo-de-Tunica-e-Calca-1816.html'" style="background-image: url('../back/fotos/casa1476/produtos/capa_1816_0.jpg');"></div>
+                      <div class="listav2_nome listav2_nomed"><a class="listav2_nome" target="_top" href="../info/Conjunto-unissexo-de-Tunica-e-Calca-1816.html">Conjunto unissexo de Túnica e Calça.</a></div>
+                <div class="listav2_desc">Casaca de tecido elástico. Manga curta e gola em bico. Aberturas laterais. Três bolsos laterais de chapa. Um bolso para...</div><div class="listarv2_bt"><div class="divtab"><div class="divcelp"><div class="listarv2_btconsultar" onclick="top.location.href='../info/Conjunto-unissexo-de-Tunica-e-Calca-1816.html'"><div class="listarv2_btc_3d"></div><div class="listarv2_btc_n">CONSULTAR</div></div></div></div></div><div class="listarv2_bt_esp"></div>
+                     
+                     <div id="ifc_1816" class="icons_favcon"><div id="ifa_1816" class="listarv2_nada"></div><div id="ico_1816" class="listarv2_nada"></div></div>
+              <div id="map_1816" class="menu_iconb">
+                   <div class="circleBase menu_iconf"></div>
+                   <div class="menu_icon"></div>
+              </div>
+              <div id="kap_1816" class="menu_icon_mafoto">
+                   <div class="circleBase menu_iconf"></div>
+                   <div class="menu_icon_ma"></div>
+              </div>
+              <div id="baf_1816" class="box_apoio_foto">
+                   <div id="bap_1816" class="box_apoio_base">
+                        <div class="box_apoio_fundo"></div>
+                        <div class="box_apoio_botoes" id="flb_1816"></div>
+                   </div>
+              </div></div>
+<div class='hx'></div><div class='hx'></div><div class='hx'></div><div class='hx'></div><div class='hx'></div></div><script>document.getElementById('num_artigos_lista').innerHTML='11';</script><script type='text/javascript'>function abre_popups() { }</script><div style='height:30px;'></div><script> $(['../back/fotos/casa1476/produtos/capa_2409_1.jpg','../back/fotos/casa1476/produtos/capa_2403_1.jpg','../back/fotos/casa1476/produtos/capa_2368_1.jpg','../back/fotos/casa1476/produtos/capa_2058_1.jpg','../back/fotos/casa1476/produtos/capa_2057_1.jpg','../back/fotos/casa1476/produtos/capa_2039_1.jpg','../back/fotos/casa1476/produtos/capa_2038_1.jpg','../back/fotos/casa1476/produtos/capa_1884_1.jpg','../back/fotos/casa1476/produtos/capa_1883_1.jpg','../back/fotos/casa1476/produtos/capa_1823_1.jpg','../back/fotos/casa1476/produtos/capa_1816_1.jpg']).preload(); </script>
+</div>
+<script>
+    var flag_load_page = 0;
+    abre_popups();
+    hcarrega_new();
+    $(window).on('load', function() { hcarrega_new(); flag_load_page = 1; });
+    if (!flag_load_page) hcarrega_new();
+</script>
+
+</body>
+
+</html>

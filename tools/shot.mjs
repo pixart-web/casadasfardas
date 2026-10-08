@@ -1,0 +1,11 @@
+import { chromium } from '@playwright/test';
+import { chromiumPath } from './browser.mjs';
+const [,, path, w, out, full] = process.argv;
+const b = await chromium.launch({ executablePath: chromiumPath() });
+const ctx = await b.newContext({ viewport: { width: +w, height: 900 } });
+const p = await ctx.newPage();
+await p.goto('http://casadasfardas.localhost:8092' + path, { waitUntil: 'networkidle' });
+await p.evaluate(async () => { for (let y = 0; y < document.body.scrollHeight; y += 350) { window.scrollTo(0, y); await new Promise(r => setTimeout(r, 140)); } window.scrollTo(0, 0); });
+await p.evaluate(async () => { await Promise.all([...document.images].map(i => i.complete ? 0 : new Promise(r => { i.onload = i.onerror = r; setTimeout(r, 4000); }))); }); await p.waitForTimeout(300);
+await p.screenshot({ path: out, fullPage: full !== '0' });
+await b.close();

@@ -1,0 +1,33 @@
+{
+    "categories": {
+        "created": 0,
+        "updated": 0,
+        "unchanged": 141
+    },
+    "brands": {
+        "created": 0,
+        "existing": 2
+    },
+    "products": {
+        "created": 0,
+        "updated": 39,
+        "unchanged": 11,
+        "failed": 0
+    },
+    "variations": {
+        "created": 0,
+        "updated": 141,
+        "removed": 0
+    },
+    "images": {
+        "imported": 210,
+        "reused": 19,
+        "missing": 0
+    },
+    "errors": [],
+    "warnings": [],
+    "seconds": 49.3,
+    "dry_run": false,
+    "file": "/var/www/cdf-import/catalog/catalog.json",
+    "finished": "2026-10-02T19:48:22+00:00"
+}

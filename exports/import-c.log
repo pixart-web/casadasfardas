@@ -1,0 +1,23 @@
+ Container casadasfardas-db-1 Running 
+ Container casadasfardas-db-1 Waiting 
+ Container casadasfardas-db-1 Healthy 
+ Container casadasfardas-cli-run-f1ec9a884c76 Creating 
+ Container casadasfardas-cli-run-f1ec9a884c76 Created 
+  25/258 produtos
+  50/258 produtos
+  75/258 produtos
+  100/258 produtos
+  125/258 produtos
+  150/258 produtos
+  175/258 produtos
+  200/258 produtos
+  225/258 produtos
+  250/258 produtos
+categories  {"created":0,"updated":0,"unchanged":141}
+brands      {"created":0,"existing":5}
+products    {"created":0,"updated":258,"unchanged":0,"failed":0}
+variations  {"created":0,"updated":1530,"removed":0}
+images      {"imported":2436,"reused":12,"missing":0}
+avisos: 0 · erros: 0 · 421.9 s
+Success: Importação concluída.
+FIM

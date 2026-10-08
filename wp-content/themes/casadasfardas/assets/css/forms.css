@@ -1,0 +1,62 @@
+/* ==========================================================================
+   Casa das Fardas — formulários de orçamento e contacto (cdf/form)
+   ========================================================================== */
+
+.cdf-form-wrap { max-width: 860px; min-width: 0; }
+.cdf-form { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--cdf-s6); }
+.cdf-form__section { border: 0; margin: 0; padding: 0; min-width: 0; display: grid; gap: var(--cdf-s4); }
+.cdf-form__section > legend { font-family: var(--cdf-font-display); font-size: var(--cdf-fs-xl); font-weight: 700; color: var(--cdf-navy-deep); letter-spacing: -0.02em; margin-bottom: var(--cdf-s3); padding: 0; }
+.cdf-form__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--cdf-s4) var(--cdf-s5); }
+.cdf-field { display: grid; gap: 0.4rem; align-content: start; }
+.cdf-field__hint, .cdf-form__hint { font-size: var(--cdf-fs-sm); color: var(--cdf-muted); margin: 0; }
+.cdf-field__hint.is-error { color: var(--cdf-danger); font-weight: 600; }
+.cdf-field__error { display: flex; align-items: center; gap: 0.35rem; margin: 0; font-size: var(--cdf-fs-sm); font-weight: 600; color: var(--cdf-danger); }
+.cdf-req { color: var(--cdf-danger); }
+.cdf-field input[type="file"] { padding: 0.5rem; border: 1.5px dashed #c9d1da; border-radius: var(--cdf-radius); background: var(--cdf-surface); font-size: var(--cdf-fs-sm); width: 100%; }
+.cdf-field input[type="file"]::file-selector-button { margin-right: 0.75rem; padding: 0.55rem 1rem; border: 0; border-radius: 4px; background: var(--cdf-navy); color: #fff; font-weight: 600; cursor: pointer; }
+.cdf-field input[type="file"]:hover::file-selector-button { background: var(--cdf-navy-deep); }
+.cdf-hp { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; overflow: hidden; }
+
+.cdf-choice-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(190px, 100%), 1fr)); gap: 0.6rem; }
+.cdf-choice { position: relative; display: block; }
+.cdf-choice input { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); }
+.cdf-choice span { display: flex; align-items: center; min-height: 52px; padding: 0.6rem 0.9rem 0.6rem 2.6rem; border: 1.5px solid var(--cdf-line); border-radius: var(--cdf-radius); font-weight: 550; cursor: pointer; transition: border-color 0.15s, background 0.15s; }
+.cdf-choice:hover span { border-color: var(--cdf-navy); }
+.cdf-choice input:checked + span { border-color: var(--cdf-navy); background: var(--cdf-navy-50); box-shadow: inset 0 0 0 1px var(--cdf-navy); }
+.cdf-choice input:focus-visible + span { box-shadow: var(--cdf-focus); }
+
+.cdf-check { display: grid; grid-template-columns: 22px 1fr; gap: 0.7rem; align-items: start; font-weight: 400; font-size: var(--cdf-fs-sm); color: var(--cdf-ink-2); }
+.cdf-check input { margin-top: 2px; }
+.cdf-field--consent { padding: var(--cdf-s4); background: var(--cdf-surface); border-radius: var(--cdf-radius); }
+.cdf-form__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--cdf-s4); }
+.cdf-form__actions .cdf-btn { min-width: 16rem; }
+
+.cdf-quote-items { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--cdf-s3); }
+.cdf-quote-item { display: grid; grid-template-columns: 72px minmax(0, 1fr) auto; gap: var(--cdf-s4); align-items: center; padding: var(--cdf-s3); border: 1px solid var(--cdf-line); border-radius: var(--cdf-radius-lg); background: #fff; }
+.cdf-quote-item__media img { width: 72px; height: 72px; object-fit: contain; border-radius: var(--cdf-radius); background: var(--cdf-surface); }
+.cdf-quote-item__info { display: grid; gap: 0.2rem; min-width: 0; }
+.cdf-quote-item__info a { font-weight: 600; color: var(--cdf-ink); text-decoration: none; }
+.cdf-quote-item__info a:hover { color: var(--cdf-navy); text-decoration: underline; }
+.cdf-quote-item__meta { font-size: var(--cdf-fs-xs); color: var(--cdf-muted); }
+.cdf-quote-item__fields { display: flex; align-items: end; gap: var(--cdf-s3); }
+.cdf-quote-item__fields label { display: grid; gap: 0.25rem; font-size: var(--cdf-fs-xs); }
+.cdf-quote-item__fields select { min-width: 6.5rem; min-height: 42px; }
+.cdf-quote-item__fields input { width: 5.5rem; min-height: 42px; }
+
+.cdf-form-errors { padding: var(--cdf-s4) var(--cdf-s5); border-radius: var(--cdf-radius); border-left: 4px solid var(--cdf-danger); background: var(--cdf-danger-bg); }
+.cdf-form-errors h2 { font-family: var(--cdf-font-body); font-size: 1.0625rem; letter-spacing: 0; margin: 0 0 0.4rem; color: var(--cdf-danger); }
+.cdf-form-errors ul { margin: 0; padding-left: 1.1rem; }
+.cdf-form-errors a { color: var(--cdf-danger); font-weight: 600; }
+.cdf-form-errors:focus, .cdf-form-success:focus { outline: none; box-shadow: var(--cdf-focus); }
+.cdf-form-success { display: grid; justify-items: start; gap: var(--cdf-s2); padding: var(--cdf-s6); border-radius: var(--cdf-radius-lg); background: var(--cdf-success-bg); border: 1px solid #b9e2c4; }
+.cdf-form-success svg { color: var(--cdf-success); }
+.cdf-form-success h2 { font-size: var(--cdf-fs-xl); margin: 0; }
+.cdf-form-success p { margin: 0; }
+
+@media (max-width: 767px) {
+	.cdf-form__grid { grid-template-columns: minmax(0, 1fr); }
+	.cdf-quote-item { grid-template-columns: 56px minmax(0, 1fr); }
+	.cdf-quote-item__media img { width: 56px; height: 56px; }
+	.cdf-quote-item__fields { grid-column: 1 / -1; flex-wrap: wrap; }
+	.cdf-form__actions .cdf-btn { width: 100%; min-width: 0; }
+}
