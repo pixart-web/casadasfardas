@@ -22,6 +22,17 @@ bin/setup.sh
 
 `bin/setup.sh` é idempotente: instala WordPress (pt_PT), WooCommerce, o tema e o plugin, configura a loja (`wp cdf setup`), importa o catálogo (`wp cdf import`) e cria páginas e menus (`wp cdf pages`). `bin/setup.sh --reset` apaga tudo e reinstala de raiz.
 
+### Demo completa a partir do repositório
+
+O repositório inclui as **5356 fotografias originais** do catálogo (`audit/media/products/`, 354 MB) e o catálogo normalizado (`catalog/catalog.json`). Num servidor ou computador novo, `bin/setup.sh` importa os 958 produtos com fotografias e cria a homepage, setores e restantes páginas com as imagens do hero e dos cartões. A importação das imagens demora cerca de 30–45 min (gera as versões WebP); pode ser acelerada por lotes paralelos:
+
+```bash
+bin/wp cdf import --offset=0 --limit=450 &  bin/wp cdf import --offset=450 &  wait
+bin/wp cdf import && bin/wp cdf pages --force     # passagem final (idempotente) e páginas com imagens
+```
+
+Num servidor sem Docker, os mesmos comandos correm com o WP-CLI do alojamento, definindo `CDF_IMPORT_DIR` para a pasta que contém `catalog/` e `media/` (ver `docker-compose.yml`).
+
 ## Versões efetivamente instaladas
 
 | Componente | Versão |

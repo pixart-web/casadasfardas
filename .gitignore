@@ -6,7 +6,9 @@ tools/node_modules/
 docs/qa/artefactos/
 exports/*.json
 !exports/.gitkeep
-# Recolha: a cache HTML e as imagens descarregadas são regeneráveis (audit/scripts/crawl.py)
+# Recolha: a cache HTML (553 MB) é regenerável com audit/scripts/crawl.py e não é precisa para a demo.
+# As fotografias originais (audit/media/products) ESTÃO no repositório: o importador usa-as.
 audit/cache/
-audit/media/products/
 .DS_Store
+exports/*.sql
+exports/*.tar.gz
