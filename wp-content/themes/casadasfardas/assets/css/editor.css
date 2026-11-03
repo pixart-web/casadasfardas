@@ -1,7 +1,6 @@
 /* Ajustes só para o editor de blocos (aproximação visual do site). */
 .editor-styles-wrapper { font-family: "Inter", system-ui, sans-serif; color: #16202b; }
 .editor-styles-wrapper .cdf-content > *, .editor-styles-wrapper .cdf-section > * { padding-inline: 0; }
-.editor-styles-wrapper .cdf-hero__visual::before, .editor-styles-wrapper .cdf-hero__visual::after { display: none; }
 .editor-styles-wrapper .cdf-sector-card { min-height: 0; background: #021b36; }
 .editor-styles-wrapper .cdf-sector-card > .wp-block-image { position: relative; inset: auto; z-index: 0; }
 .editor-styles-wrapper .cdf-sector-card::before { display: none; }

@@ -271,6 +271,7 @@ class CDF_Pages {
 	}
 
 	public function run() {
+		$this->editorial_files();
 		$this->category_images();
 		$this->woo_pages();
 		$this->home();
@@ -282,6 +283,31 @@ class CDF_Pages {
 		$this->legal();
 		$this->menus();
 		$this->settings();
+	}
+
+	/**
+	 * Fotografias editoriais fornecidas pelo cliente (media/editorial/*.jpg), importadas uma vez para a biblioteca.
+	 */
+	private function editorial_files() {
+		$dir = ( defined( 'CDF_IMPORT_DIR' ) ? CDF_IMPORT_DIR : ABSPATH ) . '/media/editorial';
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+		require_once ABSPATH . 'wp-admin/includes/media.php';
+		require_once ABSPATH . 'wp-admin/includes/image.php';
+		foreach ( (array) glob( $dir . '/*.jpg' ) as $file ) {
+			$name = basename( $file );
+			if ( $this->attachment( $name ) ) {
+				continue;
+			}
+			$tmp = wp_tempnam( $name );
+			copy( $file, $tmp );
+			$id = media_handle_sideload( array( 'name' => $name, 'tmp_name' => $tmp ), 0, ucfirst( str_replace( array( 'setor-', '-' ), array( '', ' ' ), pathinfo( $name, PATHINFO_FILENAME ) ) ) );
+			if ( is_wp_error( $id ) ) {
+				WP_CLI::warning( "$name: " . $id->get_error_message() );
+				continue;
+			}
+			update_post_meta( $id, '_cdf_source_url', 'editorial/' . $name );
+			WP_CLI::log( "  imagem editorial: $name ($id)" );
+		}
 	}
 
 	/**
@@ -324,9 +350,13 @@ class CDF_Pages {
 		$quote = $this->url( 'pedido-de-orcamento' );
 		$shop  = $this->url( 'loja' );
 
+		// Hero: título à esquerda; texto, ações e vantagens à direita (sem elementos decorativos).
 		$hero_copy = $this->group(
 			$this->p( 'Fardas · Vestuário de trabalho · EPI', 'is-style-cdf-eyebrow' ) .
-			$this->h( 'A imagem profissional da sua equipa <mark>começa aqui</mark>.', 1, 'cdf-hero__title' ) .
+			$this->h( 'A imagem profissional da sua equipa <mark>começa aqui</mark>.', 1, 'cdf-hero__title' ),
+			'cdf-hero__copy'
+		);
+		$hero_aside = $this->group(
 			$this->p( 'Vestuário de trabalho, calçado de segurança e equipamentos de proteção individual para empresas e instituições — com bordados e estamparia de produção própria e fornecimento para todo o país.', 'is-style-cdf-lead' ) .
 			$this->buttons( array( array( 'Explorar a loja', $shop ), array( 'Equipar a minha empresa', $quote, 'is-style-cdf-secondary' ) ) ) .
 			$this->lst(
@@ -337,18 +367,9 @@ class CDF_Pages {
 				),
 				'cdf-hero__facts'
 			),
-			'cdf-hero__copy'
+			'cdf-hero__aside'
 		);
-		$hero_visual = $this->group(
-			$this->group(
-				$this->img( 'vista_1816_0.jpg', 'Profissionais de saúde com fardas de duas peças em azul e vermelho', '<a href="' . esc_url( $this->cat( 'cat:3' ) ) . '">Saúde e serviços</a>' ) .
-				$this->img( 'vista_474_0.jpg', 'Parka de alta visibilidade amarela com bandas refletoras', '<a href="' . esc_url( $this->cat( 'cat:2' ) ) . '">Alta visibilidade</a>', '', '', false ) .
-				$this->img( 'vista_492_0.jpg', 'Bota de segurança em pele preta', '<a href="' . esc_url( $this->cat( 'cat:11' ) ) . '">Calçado de segurança</a>', '', '', false ),
-				'cdf-hero__mosaic'
-			),
-			'cdf-hero__visual'
-		);
-		$hero = $this->group( $this->group( $hero_copy . $hero_visual, 'cdf-hero__grid' ), 'cdf-hero', 'full' );
+		$hero = $this->group( $this->group( $hero_copy . $hero_aside, 'cdf-hero__grid' ), 'cdf-hero', 'full' );
 
 		$sectors = '';
 		foreach ( $this->sector_list() as $s ) {
@@ -487,7 +508,7 @@ class CDF_Pages {
 				'intro' => 'Jaquetas de cozinha, calças, aventais, coletes, saias, t-shirts e toucas para cozinha e sala, além de mantas e toalhas. Tudo pode levar o logótipo do restaurante ou do hotel, em bordado ou estampagem.',
 				'cats'  => array( 'cat:4' ),
 				'more'  => array( 'sub:67', 'sub:78' ),
-				'image' => 'vista_3395_0.jpg',
+				'image' => 'setor-hotelaria-e-restauracao.jpg',
 			),
 			array(
 				'slug'  => 'saude-e-servicos',
@@ -497,7 +518,7 @@ class CDF_Pages {
 				'intro' => 'Batas, conjuntos de túnica e calça, camisas, aventais, coletes, saias e toucas para clínicas, lares, serviços de limpeza e infantários — com calçado de proteção branco e descartáveis.',
 				'cats'  => array( 'cat:3' ),
 				'more'  => array( 'sub:67', 'cat:14' ),
-				'image' => 'vista_2368_0.jpg',
+				'image' => 'setor-saude-e-servicos.jpg',
 			),
 			array(
 				'slug'  => 'industria',
@@ -507,7 +528,7 @@ class CDF_Pages {
 				'intro' => 'Vestuário para as várias indústrias — automóvel, metalomecânica, construção e outras: calças, jardineiras, blusões e parkas, fatos-macaco, pólos, sweats, polares e vestuário técnico, além de vestuário especial ignífugo, antiestático e para soldadura.',
 				'cats'  => array( 'cat:1', 'cat:21' ),
 				'more'  => array( 'cat:7', 'cat:11' ),
-				'image' => 'vista_1328_0.jpg',
+				'image' => 'setor-industria.jpg',
 			),
 			array(
 				'slug'  => 'construcao-e-obras',
@@ -517,7 +538,7 @@ class CDF_Pages {
 				'intro' => 'Vestuário de alta visibilidade (coletes, casacos, parkas, calças, pólos e t-shirts) com o equipamento de proteção que completa a farda em obra: capacetes, sistemas anti-quedas, luvas, sinalização e calçado de segurança.',
 				'cats'  => array( 'cat:2' ),
 				'more'  => array( 'cat:6', 'cat:13', 'cat:15', 'cat:11' ),
-				'image' => 'vista_4086_0.jpg',
+				'image' => 'setor-construcao-e-obras.jpg',
 			),
 			array(
 				'slug'  => 'desporto',
@@ -527,7 +548,7 @@ class CDF_Pages {
 				'intro' => 'T-shirts técnicas, pólos, calças e calções, fatos de treino, equipamentos de futebol, coletes, meias, saias, sacos e mochilas e sapatilhas — para equipas, clubes e eventos, com personalização.',
 				'cats'  => array( 'cat:5' ),
 				'more'  => array(),
-				'image' => 'vista_3699_0.jpg',
+				'image' => 'setor-desporto.jpg',
 			),
 		);
 	}
