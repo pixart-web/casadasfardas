@@ -315,15 +315,15 @@ class CDF_Pages {
 	 */
 	private function category_images() {
 		$map = array(
-			'type:1' => 'vista_1328_0.jpg',
-			'type:2' => 'vista_518_0.jpg',
-			'cat:4'  => 'vista_2132_0.jpg',
-			'cat:3'  => 'vista_2395_0.jpg',
-			'cat:1'  => 'vista_1543_0.jpg',
-			'cat:2'  => 'vista_474_0.jpg',
-			'cat:11' => 'vista_492_0.jpg',
-			'cat:5'  => 'vista_3542_0.jpg',
-			'cat:7'  => 'vista_518_0.jpg',
+			'n:vestuario'                => 'vista_1328_0.jpg',
+			'n:equipamentos-de-protecao' => 'vista_518_0.jpg',
+			'n:horeca'                   => 'vista_2132_0.jpg',
+			'n:servicos-e-saude'         => 'vista_2395_0.jpg',
+			'n:industria'                => 'vista_1543_0.jpg',
+			'n:alta-visibilidade'        => 'vista_474_0.jpg',
+			'n:calcado'                  => 'vista_492_0.jpg',
+			'n:desporto'                 => 'vista_3542_0.jpg',
+			'n:maos'                     => 'vista_518_0.jpg',
 		);
 		foreach ( $map as $key => $file ) {
 			$term = cdf_term_by_source_key( $key );
@@ -387,7 +387,7 @@ class CDF_Pages {
 			'full'
 		);
 
-		$cats = array_filter( array( $this->cat_slug( 'cat:11' ), $this->cat_slug( 'cat:2' ), $this->cat_slug( 'cat:1' ), $this->cat_slug( 'cat:4' ), $this->cat_slug( 'cat:3' ), $this->cat_slug( 'cat:7' ), $this->cat_slug( 'cat:5' ), $this->cat_slug( 'cat:10' ) ) );
+		$cats = array_filter( array_map( fn( $k ) => $this->cat_slug( $k ), array( 'n:calcado', 'n:alta-visibilidade', 'n:industria', 'n:horeca', 'n:servicos-e-saude', 'n:maos', 'n:desporto', 'n:respiratoria' ) ) );
 		$quick = $this->group(
 			$this->section_head( 'Compra rápida', 'Comece pela categoria certa', 'Ver toda a loja', $shop ) .
 			$this->block( 'cdf/categories', array( 'slugs' => implode( ',', $cats ), 'limit' => 8, 'columns' => 4, 'style' => 'tiles' ) ),
@@ -423,14 +423,14 @@ class CDF_Pages {
 		);
 
 		$shoes_links = '';
-		foreach ( array( 'sub:64', 'sub:65', 'sub:67', 'sub:66', 'sub:68', 'sub:69' ) as $k ) {
+		foreach ( array( 'n:calcado/botas', 'n:calcado/sapatos', 'n:calcado/galochas', 'n:calcado/sapatilhas', 'n:calcado/alimentar', 'n:calcado/socas' ) as $k ) {
 			$t = cdf_term_by_source_key( $k );
 			if ( $t && $t->count ) {
 				$shoes_links .= '<li><a href="' . esc_url( get_term_link( $t ) ) . '">' . esc_html( $t->name ) . '</a></li>';
 			}
 		}
 		$epi_links = '';
-		foreach ( array( 'cat:7', 'cat:10', 'cat:8', 'cat:9', 'cat:6', 'cat:13' ) as $k ) {
+		foreach ( array( 'n:maos', 'n:respiratoria', 'n:auditiva', 'n:ocular-e-facial', 'n:cabeca', 'n:anti-queda' ) as $k ) {
 			$t = cdf_term_by_source_key( $k );
 			if ( $t ) {
 				$epi_links .= '<li><a href="' . esc_url( get_term_link( $t ) ) . '">' . esc_html( $t->name ) . '</a></li>';
@@ -441,21 +441,21 @@ class CDF_Pages {
 				$this->group(
 					$this->group(
 						$this->p( 'Calçado', 'is-style-cdf-eyebrow' ) .
-						$this->h( 'Calçado de segurança' ) .
-						$this->p( 'Botas e sapatos com biqueira em aço ou compósito, modelos antiestáticos, brancos para alimentação e saúde, e de borracha.' ) .
+						$this->h( 'Calçado de trabalho' ) .
+						$this->p( 'Botas e sapatos de segurança com biqueira em aço ou compósito, galochas, socas, sapatilhas e calçado branco para a indústria alimentar e a saúde.' ) .
 						"<!-- wp:html -->\n<ul class=\"cdf-links\">$shoes_links</ul>\n<!-- /wp:html -->\n",
 						'cdf-duo__text'
-					) . $this->img( 'vista_499_0.jpg', 'Sapato de segurança desportivo preto e verde', '', $this->cat( 'cat:11' ), '', false ),
+					) . $this->img( 'vista_499_0.jpg', 'Sapato de segurança desportivo preto e verde', '', $this->cat( 'n:calcado' ), '', false ),
 					'cdf-duo__tile'
 				) .
 				$this->group(
 					$this->group(
 						$this->p( 'Proteção', 'is-style-cdf-eyebrow' ) .
-						$this->h( 'Proteção individual (EPI)' ) .
-						$this->p( 'Luvas, proteção respiratória e auditiva, óculos e viseiras, capacetes, anti-quedas, descartáveis e sinalização.' ) .
+						$this->h( 'Equipamentos de proteção' ) .
+						$this->p( 'Proteção da cabeça, ocular e facial, respiratória, auditiva, das mãos e do corpo, descartáveis e sistemas anti-queda.' ) .
 						"<!-- wp:html -->\n<ul class=\"cdf-links\">$epi_links</ul>\n<!-- /wp:html -->\n",
 						'cdf-duo__text'
-					) . $this->img( 'vista_518_0.jpg', 'Luvas de proteção anti-corte com palma revestida', '', $this->cat( 'cat:7' ), '', false ),
+					) . $this->img( 'vista_518_0.jpg', 'Luvas de proteção anti-corte com palma revestida', '', $this->cat( 'n:maos' ), '', false ),
 					'cdf-duo__tile cdf-duo__tile--dark'
 				),
 				'cdf-duo'
@@ -506,8 +506,8 @@ class CDF_Pages {
 				'short' => 'Hotelaria e restauração',
 				'card'  => 'Jaquetas, calças, aventais, coletes, toucas e têxteis para cozinha e sala.',
 				'intro' => 'Jaquetas de cozinha, calças, aventais, coletes, saias, t-shirts e toucas para cozinha e sala, além de mantas e toalhas. Tudo pode levar o logótipo do restaurante ou do hotel, em bordado ou estampagem.',
-				'cats'  => array( 'cat:4' ),
-				'more'  => array( 'sub:67', 'sub:78' ),
+				'cats'  => array( 'n:horeca' ),
+				'more'  => array( 'n:calcado/alimentar', 'n:descartaveis/toucas' ),
 				'image' => 'setor-hotelaria-e-restauracao.jpg',
 			),
 			array(
@@ -516,8 +516,8 @@ class CDF_Pages {
 				'short' => 'Saúde e serviços',
 				'card'  => 'Batas, túnicas, calças, aventais e toucas para clínicas, lares, limpeza e infantários.',
 				'intro' => 'Batas, conjuntos de túnica e calça, camisas, aventais, coletes, saias e toucas para clínicas, lares, serviços de limpeza e infantários — com calçado de proteção branco e descartáveis.',
-				'cats'  => array( 'cat:3' ),
-				'more'  => array( 'sub:67', 'cat:14' ),
+				'cats'  => array( 'n:servicos-e-saude' ),
+				'more'  => array( 'n:calcado/alimentar', 'n:calcado/socas', 'n:descartaveis' ),
 				'image' => 'setor-saude-e-servicos.jpg',
 			),
 			array(
@@ -526,18 +526,18 @@ class CDF_Pages {
 				'short' => 'Indústria e oficinas',
 				'card'  => 'Calças, blusões, fatos-macaco, pólos e vestuário técnico para fábricas e oficinas.',
 				'intro' => 'Vestuário para as várias indústrias — automóvel, metalomecânica, construção e outras: calças, jardineiras, blusões e parkas, fatos-macaco, pólos, sweats, polares e vestuário técnico, além de vestuário especial ignífugo, antiestático e para soldadura.',
-				'cats'  => array( 'cat:1', 'cat:21' ),
-				'more'  => array( 'cat:7', 'cat:11' ),
+				'cats'  => array( 'n:industria' ),
+				'more'  => array( 'n:maos', 'n:calcado', 'n:ocular-e-facial', 'n:auditiva' ),
 				'image' => 'setor-industria.jpg',
 			),
 			array(
 				'slug'  => 'construcao-e-obras',
 				'title' => 'Alta visibilidade e proteção para construção e obras',
 				'short' => 'Construção e obras',
-				'card'  => 'Alta visibilidade, capacetes, anti-quedas, sinalização e calçado de segurança.',
-				'intro' => 'Vestuário de alta visibilidade (coletes, casacos, parkas, calças, pólos e t-shirts) com o equipamento de proteção que completa a farda em obra: capacetes, sistemas anti-quedas, luvas, sinalização e calçado de segurança.',
-				'cats'  => array( 'cat:2' ),
-				'more'  => array( 'cat:6', 'cat:13', 'cat:15', 'cat:11' ),
+				'card'  => 'Alta visibilidade, capacetes, anti-queda, luvas e calçado de segurança.',
+				'intro' => 'Vestuário de alta visibilidade (coletes, casacos, parkas, calças, pólos e t-shirts) com o equipamento de proteção que completa a farda em obra: capacetes, sistemas anti-queda, luvas e calçado de segurança.',
+				'cats'  => array( 'n:alta-visibilidade' ),
+				'more'  => array( 'n:cabeca', 'n:anti-queda', 'n:maos', 'n:calcado' ),
 				'image' => 'setor-construcao-e-obras.jpg',
 			),
 			array(
@@ -546,8 +546,8 @@ class CDF_Pages {
 				'short' => 'Desporto',
 				'card'  => 'T-shirts técnicas, pólos, fatos de treino, futebol, sacos e sapatilhas.',
 				'intro' => 'T-shirts técnicas, pólos, calças e calções, fatos de treino, equipamentos de futebol, coletes, meias, saias, sacos e mochilas e sapatilhas — para equipas, clubes e eventos, com personalização.',
-				'cats'  => array( 'cat:5' ),
-				'more'  => array(),
+				'cats'  => array( 'n:desporto' ),
+				'more'  => array( 'n:calcado/sapatilhas' ),
 				'image' => 'setor-desporto.jpg',
 			),
 		);
@@ -609,7 +609,7 @@ class CDF_Pages {
 		);
 		$what = $this->group(
 			$this->section_head( 'O que personalizar', 'Artigos mais pedidos para personalização', 'Ver toda a loja', $this->url( 'loja' ) ) .
-			$this->block( 'cdf/categories', array( 'slugs' => implode( ',', array_filter( array( $this->cat_slug( 'sub:20' ), $this->cat_slug( 'sub:35' ), $this->cat_slug( 'sub:32' ), $this->cat_slug( 'sub:2' ), $this->cat_slug( 'sub:105' ), $this->cat_slug( 'sub:37' ), $this->cat_slug( 'sub:16' ), $this->cat_slug( 'sub:112' ) ) ) ), 'limit' => 8, 'columns' => 4 ) ),
+			$this->block( 'cdf/categories', array( 'slugs' => implode( ',', array_filter( array_map( fn( $k ) => $this->cat_slug( $k ), array( 'n:industria/polos', 'n:industria/t-shirts', 'n:industria/sweats', 'n:industria/blusoes-e-casacos', 'n:horeca/camisas', 'n:desporto/t-shirts', 'n:alta-visibilidade/coletes', 'n:horeca/aventais' ) ) ) ), 'limit' => 8, 'columns' => 4 ) ),
 			'cdf-section',
 			'full'
 		);
@@ -996,11 +996,11 @@ class CDF_Pages {
 		if ( ! $id || ! $term ) {
 			return;
 		}
-		$children = get_terms( array( 'taxonomy' => 'product_cat', 'parent' => $term->term_id, 'hide_empty' => false, 'menu_order' => 'ASC' ) );
+		$children = get_terms( array( 'taxonomy' => 'product_cat', 'parent' => $term->term_id, 'hide_empty' => true, 'menu_order' => 'ASC' ) );
 		foreach ( $children as $child ) {
-			$key = get_term_meta( $child->term_id, '_cdf_source_key', true );
-			if ( $key ) {
-				$this->add_term( $menu, $key, $id );
+			$keys = array_filter( (array) get_term_meta( $child->term_id, '_cdf_source_key', false ), fn( $k ) => str_starts_with( (string) $k, 'n:' ) );
+			if ( $keys ) {
+				$this->add_term( $menu, reset( $keys ), $id );
 			}
 		}
 	}
@@ -1008,25 +1008,17 @@ class CDF_Pages {
 	private function menus() {
 		$menu = $this->menu( 'Principal', 'primary' );
 		if ( $menu ) {
-			$v = $this->add_term( $menu, 'type:1', 0, 'Vestuário profissional', 'Alta visibilidade, hotelaria, saúde, indústria e desporto — com personalização.' );
-			foreach ( array( 'cat:2', 'cat:4', 'cat:3', 'cat:1', 'cat:5' ) as $k ) {
+			$v = $this->add_term( $menu, 'n:vestuario', 0, '', 'Alta visibilidade, indústria, horeca, serviços e saúde, desporto e calçado — com personalização.' );
+			foreach ( array( 'n:alta-visibilidade', 'n:industria', 'n:horeca', 'n:servicos-e-saude', 'n:desporto', 'n:calcado' ) as $k ) {
 				$this->add_branch( $menu, $k, $v );
 			}
-			$this->add_term( $menu, 'cat:21', $v );
-			$b = $this->add_link( $menu, 'Brindes publicitários', cdf_business( 'gifts_url' ), $v, true );
+			$this->add_link( $menu, 'Brindes publicitários', cdf_business( 'gifts_url' ), $v, true );
 
-			$c = $this->add_term( $menu, 'cat:11', 0, 'Calçado', 'Botas e sapatos de segurança com biqueira em aço ou compósito.' );
-			$this->add_branch( $menu, 'cat:11', $c );
-			$this->add_branch( $menu, 'sub:97', $c );
-
-			$e = $this->add_term( $menu, 'type:2', 0, 'Proteção e segurança', 'Luvas, proteção respiratória e auditiva, capacetes, anti-quedas e sinalização.' );
-			foreach ( array( 'cat:7', 'cat:10', 'cat:8', 'cat:9', 'cat:6', 'cat:13', 'cat:14', 'cat:15', 'cat:17', 'cat:19', 'cat:20' ) as $k ) {
+			$e = $this->add_term( $menu, 'n:equipamentos-de-protecao', 0, '', 'Cabeça, ocular e facial, respiratória, auditiva, mãos, corpo, descartáveis e anti-queda.' );
+			foreach ( array( 'n:cabeca', 'n:ocular-e-facial', 'n:respiratoria', 'n:auditiva', 'n:maos', 'n:corpo', 'n:descartaveis', 'n:anti-queda' ) as $k ) {
 				$this->add_branch( $menu, $k, $e );
 			}
-			$o = $this->add_link( $menu, 'Outros', $this->cat( 'type:2' ), $e );
-			foreach ( array( 'cat:16', 'cat:12', 'cat:18' ) as $k ) {
-				$this->add_term( $menu, $k, $o );
-			}
+			$this->add_term( $menu, 'n:' . CDF_Taxonomy::OTHER, $e );
 
 			$s = $this->add_page( $menu, 'setores' );
 			foreach ( $this->sector_list() as $sector ) {
@@ -1038,12 +1030,12 @@ class CDF_Pages {
 
 		$shop = $this->menu( 'Rodapé — Loja', 'footer_shop' );
 		if ( $shop ) {
-			$this->add_term( $shop, 'type:1', 0, 'Vestuário profissional' );
-			$this->add_term( $shop, 'cat:11', 0, 'Calçado de segurança' );
-			$this->add_term( $shop, 'type:2', 0, 'Proteção individual (EPI)' );
-			$this->add_term( $shop, 'cat:2' );
-			$this->add_term( $shop, 'cat:4' );
-			$this->add_term( $shop, 'cat:3' );
+			$this->add_term( $shop, 'n:vestuario' );
+			$this->add_term( $shop, 'n:equipamentos-de-protecao' );
+			$this->add_term( $shop, 'n:alta-visibilidade' );
+			$this->add_term( $shop, 'n:industria' );
+			$this->add_term( $shop, 'n:horeca' );
+			$this->add_term( $shop, 'n:calcado' );
 			$this->add_link( $shop, 'Brindes publicitários', cdf_business( 'gifts_url' ), 0, true );
 		}
 		$help = $this->menu( 'Rodapé — Apoio', 'footer_help' );

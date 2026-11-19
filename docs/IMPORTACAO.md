@@ -48,6 +48,20 @@ Execução final: `wp cdf import` sobre a base já importada → **958 inalterad
 | Referência repetida | `1107` em dois artigos: o segundo fica sem SKU, código em `_cdf_source_code` | SKU tem de ser único. |
 | Slugs | Nome antigo sem o ID (`bota-vouga-s3-composito-pu-src`) | Continuidade e legibilidade. |
 
+### 3.1 Estrutura de categorias nova (19/11/2026)
+
+O cliente definiu uma árvore nova, que substitui a da loja antiga. Está em `cdf-core/inc/importer/class-taxonomy.php` (`CDF_Taxonomy::tree()`) e aplica-se com `wp cdf categories` (também corre em cada `wp cdf import`). Depois disso, `wp cdf pages --force` refaz os menus e as páginas.
+
+- **Vestuário**: Alta visibilidade, Indústria (13 subcategorias cada, incluindo Especiais (ignífugos)), Horeca, Serviços e saúde, Desporto, Calçado.
+- **Equipamentos de proteção**: Cabeça, Ocular e facial, Respiratória, Auditiva, Mãos, Corpo, Descartáveis, Anti-queda.
+- **Outros artigos** (fora da lista do cliente, a decidir): sinalização (15), cintas de elevação e roquetes (11), primeiros socorros (3), lona (1). É também a categoria por omissão do WooCommerce.
+
+Reclassificação (`CDF_Taxonomy::map()`): pela categoria de origem e, onde a origem misturava artigos, pelo nome — ex.: calçado de segurança dividido em botas/sapatos/galochas/socas; calçado branco → Calçado › Alimentar; casacos polares → Malhas e polares; conjuntos túnica + calça → Conjuntos; fatos de treino → Calças/Casacos; equipamentos de futebol → Camisolas; jaquetas de cozinha → Horeca › Camisas; bandanas e máscaras de tecido → Serviços e saúde › Acessórios; viseiras e lava-olhos → Ocular e facial › Acessórios; proteção de soldadura → Ocular e facial › Soldadura; luvas de malha de aço → Mãos › Alimentar; manguitos descartáveis → Mãos › Manguitos. O vestuário ignífugo fica em Indústria › Especiais e, quando é de alta visibilidade, também em Alta visibilidade › Especiais.
+
+Subcategorias ainda sem artigos (não aparecem nos menus): Alta visibilidade › Sweats, Cabeça › Acessórios, Respiratória › Acessórios.
+
+As chaves da loja antiga ficam registadas no termo novo equivalente, por isso as URLs antigas de categorias continuam a dar 301 direto (verificado: 4025/4025).
+
 ## 4. Lacunas (`docs/inventario/import-gaps.csv`, 133 linhas)
 
 | N.º | Lacuna | Tratamento |

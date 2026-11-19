@@ -9,7 +9,7 @@ const OUT = fileURLToPath(new URL('../docs/capturas/', import.meta.url));
 const pages = {
   inicio: '/',
   loja: '/loja/',
-  categoria: '/categoria/hotelaria/',
+  categoria: '/categoria/horeca/',
   'categoria-filtrada': '/categoria/alta-visibilidade/?marca=workteam&filter_tom=amarelo',
   produto: '/produto/t-shirt-senhora-modelo-cancun/',
   'produto-orcamento': '/produto/protetor-auditivo-snr-28db-0401007/',

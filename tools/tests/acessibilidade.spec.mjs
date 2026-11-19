@@ -2,7 +2,7 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
-const PAGES = ['/', '/categoria/hotelaria/', '/produto/t-shirt-senhora-modelo-cancun/', '/produto/protetor-auditivo-snr-28db-0401007/',
+const PAGES = ['/', '/categoria/horeca/', '/produto/t-shirt-senhora-modelo-cancun/', '/produto/protetor-auditivo-snr-28db-0401007/',
   '/pedido-de-orcamento/', '/contactos/', '/personalizacao/', '/setores/industria/', '/?s=luvas&post_type=product', '/carrinho/', '/minha-conta/'];
 
 for (const path of PAGES) {

@@ -2,7 +2,7 @@
 import { test, expect } from '@playwright/test';
 
 const WIDTHS = [360, 390, 768, 1280, 1440];
-const PAGES = ['/', '/loja/', '/categoria/calcado-de-seguranca/', '/produto/t-shirt-senhora-modelo-cancun/', '/pedido-de-orcamento/', '/setores/hotelaria-e-restauracao/', '/personalizacao/', '/carrinho/'];
+const PAGES = ['/', '/loja/', '/categoria/calcado/', '/produto/t-shirt-senhora-modelo-cancun/', '/pedido-de-orcamento/', '/setores/hotelaria-e-restauracao/', '/personalizacao/', '/carrinho/'];
 
 for (const width of WIDTHS) {
   test(`sem overflow horizontal a ${width}px`, async ({ page }) => {

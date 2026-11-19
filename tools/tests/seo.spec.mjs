@@ -4,7 +4,7 @@ import { jsonLd } from '../helpers.mjs';
 
 test('metadados únicos e canonical coerente', async ({ page }) => {
   const seen = new Set();
-  for (const path of ['/', '/loja/', '/categoria/hotelaria/', '/produto/t-shirt-senhora-modelo-cancun/', '/personalizacao/', '/contactos/']) {
+  for (const path of ['/', '/loja/', '/categoria/horeca/', '/produto/t-shirt-senhora-modelo-cancun/', '/personalizacao/', '/contactos/']) {
     await page.goto(path);
     const title = await page.title();
     const desc = await page.locator('meta[name="description"]').getAttribute('content');
@@ -55,9 +55,9 @@ test('redirecionamentos 301 diretos das URLs antigas', async ({ request }) => {
     ['/info/BOTA-VOUGA-S3-COMPOSITO-PU-SRC-4590.html', /\/produto\/bota-vouga-s3-composito-pu-src\/$/],
     ['/m/info/T-shirt-senhora-modelo-CANCUN-4102.html', /\/produto\/t-shirt-senhora-modelo-cancun\/$/],
     ['/info/Preto-4103.html', /\/produto\/t-shirt-senhora-modelo-cancun\/\?attribute_pa_cor=preto$/],
-    ['/info/Batas-Saude-e-Servicos-Vestuario-22-subcategoria-lpc', /\/categoria\/batas-saude-e-servicos\/$/],
-    ['/info/Lonas-Equipamentos-de-protecao-individual-18-categoria-lpc', /\/categoria\/lonas\/$/],
-    ['/info/listar_categoria.php?nivelm=subcategoria&id=22', /\/categoria\/batas-saude-e-servicos\/$/],
+    ['/info/Batas-Saude-e-Servicos-Vestuario-22-subcategoria-lpc', /\/categoria\/batas-e-tunicas-servicos-e-saude\/$/],
+    ['/info/Lonas-Equipamentos-de-protecao-individual-18-categoria-lpc', /\/categoria\/outros-artigos\/$/],
+    ['/info/listar_categoria.php?nivelm=subcategoria&id=22', /\/categoria\/batas-e-tunicas-servicos-e-saude\/$/],
     ['/info/contactos.php', /\/contactos\/$/],
     ['/index.php', /\/$/],
   ];

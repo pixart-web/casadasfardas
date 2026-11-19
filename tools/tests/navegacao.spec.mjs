@@ -1,7 +1,7 @@
 // Navegação: páginas principais, mega menu, menu móvel, 404 e páginas pendentes.
 import { test, expect } from '@playwright/test';
 
-const PAGES = ['/', '/loja/', '/categoria/vestuario-profissional/', '/categoria/calcado-de-seguranca/', '/setores/', '/setores/hotelaria-e-restauracao/',
+const PAGES = ['/', '/loja/', '/categoria/vestuario/', '/categoria/calcado/', '/setores/', '/setores/hotelaria-e-restauracao/',
   '/setores/saude-e-servicos/', '/setores/industria/', '/setores/construcao-e-obras/', '/setores/desporto/', '/personalizacao/', '/sobre/', '/contactos/',
   '/pedido-de-orcamento/', '/carrinho/', '/minha-conta/', '/produto/t-shirt-senhora-modelo-cancun/'];
 
@@ -49,9 +49,9 @@ test('menu móvel em acordeão', async ({ page }) => {
   await page.getByRole('button', { name: 'Abrir menu' }).click();
   const drawer = page.locator('dialog.cdf-drawer');
   await expect(drawer).toBeVisible();
-  await drawer.locator('summary', { hasText: 'Vestuário profissional' }).click();
-  await drawer.locator('summary', { hasText: 'Hotelaria' }).click();
-  await expect(drawer.getByRole('link', { name: 'Jaquetas' })).toBeVisible();
+  await drawer.locator('summary', { hasText: 'Vestuário' }).first().click();
+  await drawer.locator('summary', { hasText: 'Horeca' }).click();
+  await expect(drawer.getByRole('link', { name: 'Aventais' })).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(drawer).toBeHidden();
 });

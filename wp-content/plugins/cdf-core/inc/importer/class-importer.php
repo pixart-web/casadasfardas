@@ -96,44 +96,30 @@ class CDF_Importer {
 
 	// ------------------------------------------------------------ categorias e marcas
 
+	/**
+	 * Estrutura de categorias nova (CDF_Taxonomy) e reclassificação de todos os artigos já importados.
+	 * Corre antes de suspender a invalidação de cache, porque apaga e cria termos.
+	 */
 	public function import_categories() {
-		foreach ( $this->catalog['categories'] as $cat ) {
-			$parent_id = $cat['parent'] ? ( $this->term_ids[ $cat['parent'] ] ?? 0 ) : 0;
-			$existing  = cdf_term_by_source_key( $cat['key'] );
-			$desc      = $cat['title'] ? $cat['title'] . '.' : '';
-			if ( $this->dry ) {
-				$this->term_ids[ $cat['key'] ] = $existing ? $existing->term_id : -1;
-				$this->report['categories'][ $existing ? 'unchanged' : 'created' ]++;
+		list( $this->term_ids, $report ) = CDF_Taxonomy::sync( $this->catalog, $this->dry );
+		$this->report['categories']      = $report + array( 'recategorized' => 0 );
+		if ( $this->dry ) {
+			return;
+		}
+		foreach ( $this->catalog['products'] as $r ) {
+			$post_id = cdf_post_by_source_id( $r['source_key'] );
+			if ( ! $post_id ) {
 				continue;
 			}
-			if ( $existing ) {
-				$changed = $existing->name !== $cat['name'] || (int) $existing->parent !== (int) $parent_id;
-				if ( $changed || $this->force ) {
-					wp_update_term( $existing->term_id, 'product_cat', array( 'name' => $cat['name'], 'parent' => $parent_id ) );
-					$this->report['categories']['updated']++;
-				} else {
-					$this->report['categories']['unchanged']++;
-				}
-				$term_id = $existing->term_id;
-			} else {
-				$slug = $cat['slug'];
-				$res  = wp_insert_term( $cat['name'], 'product_cat', array( 'slug' => $slug, 'parent' => $parent_id, 'description' => $desc ) );
-				if ( is_wp_error( $res ) ) {
-					$this->error( 'categoria ' . $cat['key'], $res->get_error_message() );
-					continue;
-				}
-				$term_id = (int) $res['term_id'];
-				update_term_meta( $term_id, '_cdf_source_key', $cat['key'] );
-				if ( $cat['title'] ) {
-					update_term_meta( $term_id, 'cdf_intro', $cat['title'] . '.' );
-				}
-				$this->report['categories']['created']++;
+			$want = CDF_Taxonomy::term_ids( $r, $this->term_ids );
+			$have = wp_get_object_terms( $post_id, 'product_cat', array( 'fields' => 'ids' ) );
+			sort( $want );
+			$have = is_wp_error( $have ) ? array() : array_map( 'intval', $have );
+			sort( $have );
+			if ( $want !== $have ) {
+				wp_set_object_terms( $post_id, $want, 'product_cat' );
+				$this->report['categories']['recategorized']++;
 			}
-			update_term_meta( $term_id, 'order', (int) $cat['order'] );
-			if ( $cat['source_url'] ) {
-				update_term_meta( $term_id, '_cdf_source_url', $cat['source_url'] );
-			}
-			$this->term_ids[ $cat['key'] ] = $term_id;
 		}
 	}
 
@@ -269,8 +255,8 @@ class CDF_Importer {
 			$this->report['products']['unchanged']++;
 			return;
 		}
-		$category_id = $r['category'] ? ( $this->term_ids[ $r['category'] ] ?? 0 ) : 0;
-		if ( ! $category_id ) {
+		$category_ids = CDF_Taxonomy::term_ids( $r, $this->term_ids );
+		if ( ! $category_ids ) {
 			$this->report['warnings'][] = "{$r['source_key']} sem categoria";
 		}
 		if ( $this->dry ) {
@@ -307,7 +293,7 @@ class CDF_Importer {
 		$product->set_short_description( $r['short_description'] ? '<p>' . esc_html( $r['short_description'] ) . '</p>' : '' );
 		$product->set_menu_order( (int) $r['menu_order'] );
 		$product->set_reviews_allowed( false );
-		$product->set_category_ids( $category_id > 0 ? array( $category_id ) : array() );
+		$product->set_category_ids( array_filter( $category_ids, fn( $id ) => $id > 0 ) );
 		$product->set_manage_stock( false );
 		$product->set_stock_status( 'onbackorder' );
 		$product->set_backorders( 'notify' );

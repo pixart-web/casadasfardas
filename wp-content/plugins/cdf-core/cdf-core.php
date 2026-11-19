@@ -47,6 +47,7 @@ require_once CDF_CORE_DIR . '/inc/privacy.php';
 require_once CDF_CORE_DIR . '/inc/gateway-test.php';
 
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
+	require_once CDF_CORE_DIR . '/inc/importer/class-taxonomy.php';
 	require_once CDF_CORE_DIR . '/inc/importer/class-importer.php';
 	require_once CDF_CORE_DIR . '/inc/importer/class-pages.php';
 	require_once CDF_CORE_DIR . '/inc/cli.php';

@@ -256,12 +256,12 @@ class CDF_CLI {
 		if ( ! defined( 'CDF_IMPORTING' ) ) {
 			define( 'CDF_IMPORTING', true );
 		}
-		wp_defer_term_counting( true );
-		wp_suspend_cache_invalidation( true );
 		$start    = microtime( true );
 		$importer = new CDF_Importer( $file, $assoc );
 		$importer->ensure_attributes();
 		$importer->import_categories();
+		wp_defer_term_counting( true );
+		wp_suspend_cache_invalidation( true );
 		$importer->import_products( (int) ( $assoc['offset'] ?? 0 ), (int) ( $assoc['limit'] ?? 0 ) );
 		wp_suspend_cache_invalidation( false );
 		wp_defer_term_counting( false );
@@ -283,6 +283,24 @@ class CDF_CLI {
 		} else {
 			WP_CLI::success( $report['dry_run'] ? 'Validação concluída sem erros.' : 'Importação concluída.' );
 		}
+	}
+
+	/**
+	 * Aplica a estrutura de categorias (CDF_Taxonomy) e reclassifica os artigos, sem reimportar produtos.
+	 *
+	 * [--dry-run]
+	 * : Mostra o que mudaria, sem escrever.
+	 *
+	 * [--file=<file>]
+	 * : Catálogo normalizado (por omissão catalog/catalog.json).
+	 */
+	public function categories( $args, $assoc ) {
+		$file     = $assoc['file'] ?? ( ( defined( 'CDF_IMPORT_DIR' ) ? CDF_IMPORT_DIR : ABSPATH ) . '/catalog/catalog.json' );
+		$importer = new CDF_Importer( $file, $assoc );
+		$importer->import_categories();
+		$importer->finish();
+		WP_CLI::log( 'categorias ' . wp_json_encode( $importer->report()['categories'] ) );
+		WP_CLI::success( empty( $assoc['dry-run'] ) ? 'Categorias atualizadas. Corra `wp cdf pages --force` para refazer menus e páginas.' : 'Validação concluída.' );
 	}
 
 	/**

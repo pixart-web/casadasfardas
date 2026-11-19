@@ -27,6 +27,7 @@ bin/setup.sh
 O repositório inclui as **5356 fotografias originais** do catálogo (`audit/media/products/`, 354 MB) e o catálogo normalizado (`catalog/catalog.json`). Num servidor ou computador novo, `bin/setup.sh` importa os 958 produtos com fotografias e cria a homepage, setores e restantes páginas com as imagens do hero e dos cartões. A importação das imagens demora cerca de 30–45 min (gera as versões WebP); pode ser acelerada por lotes paralelos:
 
 ```bash
+bin/wp cdf categories                               # cria a estrutura de categorias antes dos lotes paralelos
 bin/wp cdf import --offset=0 --limit=450 &  bin/wp cdf import --offset=450 &  wait
 bin/wp cdf import && bin/wp cdf pages --force     # passagem final (idempotente) e páginas com imagens
 ```
@@ -60,6 +61,7 @@ Num servidor sem Docker, os mesmos comandos correm com o WP-CLI do alojamento, d
 ```bash
 bin/wp cdf status                                   # resumo da loja
 bin/wp cdf import --dry-run                         # valida o catálogo sem escrever
+bin/wp cdf categories && bin/wp cdf pages --force   # reaplica a estrutura de categorias (class-taxonomy.php) e refaz menus
 bin/wp cdf import --report=/exports/import-report.json   # importa/atualiza sem duplicar (retoma: --offset=N --limit=M)
 bin/wp cdf import --skip-images                     # só estrutura (rápido)
 bin/wp cdf pages                                    # páginas e menus (não sobrepõe edições; --force repõe)

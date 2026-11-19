@@ -24,7 +24,7 @@ test('filtros combinados e remoção', async ({ page }) => {
 });
 
 test('ordenação por preço e por nome', async ({ page }) => {
-  await page.goto('/categoria/calcado-de-seguranca/?orderby=price');
+  await page.goto('/categoria/calcado/?orderby=price');
   const prices = await page.locator('.cdf-card__price .cdf-price > .amount, .cdf-card__price .cdf-price > .woocommerce-Price-amount').evaluateAll((els) => els.map((e) => parseFloat(e.innerText.replace(/[^\d,]/g, '').replace(',', '.'))));
   expect(prices.length).toBeGreaterThan(3);
   expect([...prices].sort((a, b) => a - b)).toEqual(prices);
@@ -33,18 +33,18 @@ test('ordenação por preço e por nome', async ({ page }) => {
 });
 
 test('paginação com URLs próprias e canonical por página', async ({ page }) => {
-  await page.goto('/categoria/vestuario-profissional/');
+  await page.goto('/categoria/vestuario/');
   await page.locator('.woocommerce-pagination a.next').click();
   await expect(page).toHaveURL(/\/page\/2\/$/);
   expect(await page.locator('ul.products > li').count()).toBeGreaterThan(0);
-  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', /\/categoria\/vestuario-profissional\/page\/2\/$/);
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', /\/categoria\/vestuario\/page\/2\/$/);
   await page.goBack();
-  await expect(page).toHaveURL(/vestuario-profissional\/$/);
+  await expect(page).toHaveURL(/categoria\/vestuario\/$/);
 });
 
 test('filtros num painel no telemóvel', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto('/categoria/hotelaria/');
+  await page.goto('/categoria/horeca/');
   const btn = page.locator('[data-cdf-filters-open]');
   await btn.click();
   await expect(btn).toHaveAttribute('aria-expanded', 'true');
